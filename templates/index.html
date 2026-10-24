@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="mb-6">
+    <h2 class="text-2xl font-bold text-gray-800">Painel Geral de Controle</h2>
+    <p class="text-gray-600">Visão geral do estoque de cestas básicas e alertas de validade de doações.</p>
+</div>
+
+<!-- Cards de Resumo -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div class="bg-white p-5 rounded-lg shadow border-l-4 border-blue-500">
+        <span class="text-gray-500 text-sm font-semibold">Total em Estoque</span>
+        <h3 class="text-3xl font-bold text-gray-800">142 itens</h3>
+    </div>
+    <div class="bg-white p-5 rounded-lg shadow border-l-4 border-yellow-500">
+        <span class="text-gray-500 text-sm font-semibold">Atenção (Vencimento Próximo)</span>
+        <h3 class="text-3xl font-bold text-yellow-600">18 itens</h3>
+    </div>
+    <div class="bg-white p-5 rounded-lg shadow border-l-4 border-green-500">
+        <span class="text-gray-500 text-sm font-semibold">Famílias Atendidas (Mês)</span>
+        <h3 class="text-3xl font-bold text-green-600">45 famílias</h3>
+    </div>
+</div>
+
+<!-- Tabela com Alertas de Validade (ODS 12 - Combate ao Desperdício) -->
+<div class="bg-white rounded-lg shadow overflow-hidden">
+    <div class="p-4 bg-gray-50 border-b flex justify-between items-center">
+        <h3 class="font-bold text-gray-700">Alertas Recentes de Alimentos</h3>
+        <span class="text-xs bg-blue-100 text-blue-800 py-1 px-2 rounded-full font-semibold">Triagem Ativa</span>
+    </div>
+    <table class="w-full text-left border-collapse">
+        <thead>
+            <tr class="bg-gray-100 text-gray-600 text-sm uppercase">
+                <th class="p-3">Item</th>
+                <th class="p-3">Qtd</th>
+                <th class="p-3">Data de Vencimento</th>
+                <th class="p-3">Status de Validade</th>
+            </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200 text-sm">
+            <tr>
+                <td class="p-3 font-medium">Leite Integral (Caixa)</td>
+                <td class="p-3">24 un.</td>
+                <td class="p-3">15/11/2026</td>
+                <td class="p-3"><span class="bg-green-100 text-green-800 text-xs font-semibold px-2 py-1 rounded">Normal</span></td>
+            </tr>
+            <tr>
+                <td class="p-3 font-medium">Feijão Carioca 1kg</td>
+                <td class="p-3">15 un.</td>
+                <td class="p-3">28/10/2026</td>
+                <td class="p-3"><span class="bg-yellow-100 text-yellow-800 text-xs font-semibold px-2 py-1 rounded">Atenção (5 dias)</span></td>
+            </tr>
+            <tr>
+                <td class="p-3 font-medium">Macarrão Galo 500g</td>
+                <td class="p-3">8 un.</td>
+                <td class="p-3">25/10/2026</td>
+                <td class="p-3"><span class="bg-red-100 text-red-800 text-xs font-semibold px-2 py-1 rounded">Urgente (Uso Imediato)</span></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}
