@@ -61,8 +61,7 @@ Sistema web desenvolvido como Projeto de Extensão Universitária para a **Paró
 
 ---
 
-# 5. Acesse no navegador:
-    http://127.0.0.1:5000
+5. **Acesse no navegador:** [http://127.0.0.1:5000](http://127.0.0.1:5000)
 
 
 📍 Informações do Projeto Extensionista
