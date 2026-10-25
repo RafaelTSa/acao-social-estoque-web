@@ -53,10 +53,26 @@ def estoque():
     conexao.close()
     return render_template('estoque.html', itens=itens)
 
-@app.route('/beneficiarios')
+@app.route('/beneficiarios', methods=['GET', 'POST'])
 def beneficiarios():
     conexao = conectar_banco()
     cursor = conexao.cursor()
+
+    if request.method == 'POST':
+        nome_responsavel = request.form.get('nome_responsavel')
+        membros = request.form.get('membros')
+        bairro = request.form.get('bairro')
+        ultima_retirada = request.form.get('ultima_retirada')
+
+        if nome_responsavel and membros and bairro:
+            cursor.execute(
+                "INSERT INTO beneficiarios (nome_responsavel, membros, bairro, ultima_retirada) VALUES (?, ?, ?, ?)",
+                (nome_responsavel, membros, bairro, ultima_retirada or 'Primeira Entrega')
+            )
+            conexao.commit()
+        conexao.close()
+        return redirect(url_for('beneficiarios'))
+
     familias = cursor.execute("SELECT * FROM beneficiarios").fetchall()
     conexao.close()
     return render_template('beneficiarios.html', familias=familias)

@@ -3,8 +3,8 @@
 {% block content %}
 <div class="flex justify-between items-center mb-6">
     <div>
-        <h2 class="text-2xl font-bold text-gray-800">Gestão de Famílias Beneficiárias</h2>
-        <p class="text-gray-600">Controle de cadastros e entregas mensais de cestas básicas na Vila São Pedro.</p>
+        <h2 class="text-2xl font-bold text-gray-800">Gestão de Famílias Beneficiárias (SQLite)</h2>
+        <p class="text-gray-600">Controle de cadastros e entregas mensais com persistência de dados na Vila São Pedro.</p>
     </div>
     <button onclick="document.getElementById('modal-beneficiario').classList.remove('hidden')" class="bg-blue-700 hover:bg-blue-800 text-white font-medium px-4 py-2 rounded-lg shadow">
         + Cadastrar Família
@@ -16,61 +16,57 @@
     <table class="w-full text-left border-collapse">
         <thead>
             <tr class="bg-gray-100 text-gray-600 text-sm uppercase">
+                <th class="p-3">ID</th>
                 <th class="p-3">Nome do Responsável</th>
                 <th class="p-3">Nº de Membros</th>
                 <th class="p-3">Bairro / Localidade</th>
                 <th class="p-3">Última Retirada</th>
-                <th class="p-3">Ações</th>
             </tr>
         </thead>
         <tbody class="divide-y divide-gray-200 text-sm">
+            {% for familia in familias %}
             <tr>
-                <td class="p-3 font-medium">Maria Aparecida da Silva</td>
-                <td class="p-3">4 pessoas</td>
-                <td class="p-3">Vila São Pedro</td>
-                <td class="p-3">10/10/2026</td>
-                <td class="p-3"><button class="text-blue-600 hover:underline">Ver Histórico</button></td>
+                <td class="p-3 font-semibold text-gray-400">#{{ familia['id'] }}</td>
+                <td class="p-3 font-medium text-gray-800">{{ familia['nome_responsavel'] }}</td>
+                <td class="p-3 text-gray-600">{{ familia['membros'] }} pessoas</td>
+                <td class="p-3 font-medium text-blue-700">{{ familia['bairro'] }}</td>
+                <td class="p-3 text-gray-500">{{ familia['ultima_retirada'] }}</td>
             </tr>
+            {% else %}
             <tr>
-                <td class="p-3 font-medium">José Carlos de Oliveira</td>
-                <td class="p-3">3 pessoas</td>
-                <td class="p-3">Vila São Pedro</td>
-                <td class="p-3">12/10/2026</td>
-                <td class="p-3"><button class="text-blue-600 hover:underline">Ver Histórico</button></td>
+                <td colspan="5" class="p-4 text-center text-gray-500">Nenhuma família cadastrada no banco de dados.</td>
             </tr>
-            <tr>
-                <td class="p-3 font-medium">Ana Lúcia Santos</td>
-                <td class="p-3">5 pessoas</td>
-                <td class="p-3">Parque Selecta</td>
-                <td class="p-3">15/09/2026</td>
-                <td class="p-3"><button class="text-blue-600 hover:underline">Ver Histórico</button></td>
-            </tr>
+            {% endfor %}
         </tbody>
     </table>
 </div>
 
-<!-- Modal Simulado de Cadastro de Família -->
+<!-- Modal de Cadastro com Envio POST -->
 <div id="modal-beneficiario" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
     <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
-        <h3 class="text-lg font-bold mb-4">Cadastrar Nova Família</h3>
-        <form action="#" method="POST" class="space-y-4">
+        <h3 class="text-lg font-bold mb-4">Cadastrar Família no SQLite</h3>
+        <form action="/beneficiarios" method="POST" class="space-y-4">
             <div>
                 <label class="block text-sm font-medium text-gray-700">Nome do Responsável</label>
-                <input type="text" placeholder="Nome completo" class="w-full p-2 border rounded-md mt-1">
+                <input type="text" name="nome_responsavel" required placeholder="Nome completo" class="w-full p-2 border rounded-md mt-1">
             </div>
             <div class="grid grid-cols-2 gap-4">
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Nº de Membros</label>
-                    <input type="number" placeholder="Ex: 4" class="w-full p-2 border rounded-md mt-1">
+                    <input type="number" name="membros" required min="1" placeholder="Ex: 4" class="w-full p-2 border rounded-md mt-1">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Bairro</label>
-                    <input type="text" placeholder="Ex: Vila São Pedro" class="w-full p-2 border rounded-md mt-1">
+                    <input type="text" name="bairro" required placeholder="Ex: Vila São Pedro" class="w-full p-2 border rounded-md mt-1">
                 </div>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Data da Última Retirada</label>
+                <input type="date" name="ultima_retirada" class="w-full p-2 border rounded-md mt-1">
             </div>
             <div class="flex justify-end space-x-2 pt-4">
                 <button type="button" onclick="document.getElementById('modal-beneficiario').classList.add('hidden')" class="px-4 py-2 bg-gray-200 rounded-md">Cancelar</button>
-                <button type="button" onclick="document.getElementById('modal-beneficiario').classList.add('hidden')" class="px-4 py-2 bg-blue-700 text-white rounded-md">Salvar</button>
+                <button type="submit" class="px-4 py-2 bg-blue-700 text-white rounded-md hover:bg-blue-800">Salvar no Banco</button>
             </div>
         </form>
     </div>
