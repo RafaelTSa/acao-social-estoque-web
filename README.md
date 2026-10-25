@@ -37,32 +37,40 @@ Sistema web desenvolvido como Projeto de Extensão Universitária para a **Paró
 
 1. Criar e ativar o ambiente virtual:
 
-Bash
-python -m venv venv
-# No Windows:
-venv\Scripts\activate
-# No Linux/Mac:
-source venv/bin/activate
+    Bash
+    python -m venv venv
+    # No Windows:
+    venv\Scripts\activate
+    # No Linux/Mac:
+    source venv/bin/activate
 
+---
 
 2. Instalar as dependências:
 
-Bash
-pip install -r requirements.txt
+    Bash
+p   ip install -r requirements.txt
 
+---
 
 3. Configurar as Variáveis de Ambiente:
 Crie um arquivo .env na raiz do projeto contendo:
 
-Snippet de código
-DATABASE_URL=postgresql://postgres:[SUA_SENHA]@[aws-0-us-east-2.pooler.supabase.com:6543/postgres](https://aws-0-us-east-2.pooler.supabase.com:6543/postgres)
+    Snippet de código
+    DATABASE_URL=postgresql://postgres:[SUA_SENHA]@[aws-0-us-east-2.pooler.supabase.com:6543/postgres](https://aws-0-us-east-2.pooler.supabase.com:6543/postgres)
+
+---
 
 4. Executar a aplicação:
 
-Bash
-python app.py
+    Bash
+    python app.py
+
+---
 
 5. Acesse no navegador: http://127.0.0.1:5000
+
+---
 
 📍 Informações do Projeto Extensionista
 Instituição: UFBRA
